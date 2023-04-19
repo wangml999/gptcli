@@ -9,7 +9,7 @@ setup(
         'pynput',
     ],
     entry_points = {
-        'console_scripts': ['abc=src.gptcli:main'],
+        'console_scripts': ['gptcli=src.gptcli:main'],
     },
     python_requires='>=3.6',
 )
