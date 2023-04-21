@@ -16,9 +16,21 @@ pip uninstall gptcli
 
 ### Usage
 ```bash
-gptcli list all pods with tag abc in namespace xyz &
+usage: gptcli [-h] [-c] [-i] text [text ...]
+
+positional arguments:
+  text           the question to ask
+
+options:
+  -h, --help     show this help message and exit
+  -c, --command  type the command directly to the terminal
+  -i, --info     get information about the command
 ```
 
 ```bash
-gptcli Print the last 5 lines of "access.log". &
+$ gptcli -i list all pods with tag abc in namespace xyz
+```
+
+```bash
+$ gptcli -c Print the last 5 lines of "access.log". &
 ```

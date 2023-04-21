@@ -39,18 +39,14 @@ def main():
         "-c",
         "--command",
         action="store_true",
-        help="Type the command directly to the terminal",
+        help="type the command directly to the terminal",
     )
     parser.add_argument(
-        "-i", "--info", action="store_true", default=True, help="Get information about the command"
+        "-i", "--info", action="store_true", default=True, help="get the information about the command"
     )
-    parser.add_argument("text", nargs="+", help="The question to ask")
+    parser.add_argument("text", nargs="+", help="the question to ask")
 
     args = parser.parse_args()
-
-    if len(args.text) == 0:
-        print("Please provide a question.")
-        return
 
     text = " ".join(args.text)
 
@@ -76,6 +72,6 @@ def main():
 
     if not args.command:
         print()
-        
+
 if __name__ == "__main__":
     main()
