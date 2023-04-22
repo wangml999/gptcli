@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 
-import sys
-from pynput.keyboard import Controller
 import openai
 import os
-import re
 import argparse
-import functools
+from src.stream import MarkfownStream, KeyboardStream, PlainStream
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 model_name = "gpt-3.5-turbo"
@@ -17,10 +14,8 @@ If the question is not about cli, you should output "Sorry, I don't know the ans
 """
 
 conditional_prompt = """
-ONLY output the command itself. DO NOT output anything else other than the command.
+ONLY output the command itself. Do not output any other text
 """
-
-keyboard = Controller()
 
 def generate_prompt(text, only_command=False):
     prompt = system_prompt
@@ -44,11 +39,21 @@ def main():
     parser.add_argument(
         "-i", "--info", action="store_true", default=True, help="get the information about the command"
     )
+    parser.add_argument(
+        "-m", "--markdown", action="store_true", help="show markdown syntax hightlighting"
+    )
     parser.add_argument("text", nargs="+", help="the question to ask")
 
     args = parser.parse_args()
 
     text = " ".join(args.text)
+    
+    if args.command:
+        stream = KeyboardStream()
+    elif args.markdown:
+        stream = MarkfownStream()
+    else:
+        stream = PlainStream()
 
     prompt = generate_prompt(text, args.command)
     completion = openai.ChatCompletion.create(
@@ -61,17 +66,11 @@ def main():
         stream=True,
     )
 
-    if args.command:
-        output_func = functools.partial(keyboard.type)
-    else:
-        output_func = functools.partial(print, end="", flush=True)
-
     for chunk in completion:
         if "content" in chunk.choices[0].delta.keys():
-            output_func(chunk.choices[0].delta.content)
+            stream.output(chunk.choices[0].delta.content)
 
-    if not args.command:
-        print()
+    stream.close()
 
 if __name__ == "__main__":
     main()

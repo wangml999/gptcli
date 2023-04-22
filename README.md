@@ -16,15 +16,16 @@ pip uninstall gptcli
 
 ### Usage
 ```bash
-usage: gptcli [-h] [-c] [-i] text [text ...]
+usage: gptcli.py [-h] [-c] [-i] [-m] text [text ...]
 
 positional arguments:
-  text           the question to ask
+  text            the question to ask
 
 options:
-  -h, --help     show this help message and exit
-  -c, --command  type the command directly to the terminal
-  -i, --info     get information about the command
+  -h, --help      show this help message and exit
+  -c, --command   type the command directly to the terminal
+  -i, --info      get the information about the command
+  -m, --markdown  show markdown syntax hightlighting
 ```
 
 ```bash
