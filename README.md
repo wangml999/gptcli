@@ -28,10 +28,13 @@ options:
   -m, --markdown  show markdown syntax hightlighting
 ```
 
+### Demo
 ```bash
-$ gptcli -i list all pods with tag abc in namespace xyz
+$ gptcli -m create a demo busybox pod demo in namespace xyz with label tag=abc
 ```
 
 ```bash
-$ gptcli -c Print the last 5 lines of "access.log". &
+$ gptcli -c show all the pods in namespace xyz with label tag=abc
 ```
+
+![Alt Text](assets/demo.gif)
